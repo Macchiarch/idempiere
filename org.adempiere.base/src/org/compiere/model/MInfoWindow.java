@@ -507,8 +507,12 @@ public class MInfoWindow extends X_AD_InfoWindow implements ImmutablePOSupport
 		while(builder.indexOf("@") >= 0) {
 			int start = builder.indexOf("@");
 			int end = builder.indexOf("@", start+1);
+			int semicolIdx = builder.indexOf(":",start);
 			if (start >=0 && end > start) {
-				builder.replace(start, end+1, "0");
+				if(semicolIdx > start && semicolIdx < end)
+					builder.replace(start, end+1, builder.substring(semicolIdx+1, end));
+				else
+					builder.replace(start, end+1, "0");
 			} else {
 				break;
 			}
